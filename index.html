@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#29AC6B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="CashFlowZ">
+<link rel="apple-touch-icon" sizes="180x180" href="asset/logo/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="asset/logo/favicon-32.png">
+<link rel="manifest" href="manifest.json?v=8">
+<title>CashFlowZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css?v=6">
+<link rel="stylesheet" href="css/layout.css?v=7">
+<link rel="stylesheet" href="css/views.css?v=6">
+<link rel="stylesheet" href="css/components.css?v=6">
+<link rel="stylesheet" href="css/responsive.css?v=7">
+</head>
+<body>
+
+<!-- ==================== SPLASH SCREEN ==================== -->
+<div class="splash-screen" id="splashView">
+  <div class="splash-content">
+    <img src="asset/logo/logofull.svg" alt="CashFlowZ" class="splash-logo-img">
+    <div class="splash-loader">
+      <div class="splash-progress"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LOADING OVERLAY ==================== -->
+<div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"></div></div>
+
+<!-- ==================== WELCOME VIEW ==================== -->
+<div class="welcome-page" id="welcomeView" hidden>
+  <div class="welcome-card">
+    <div class="welcome-hero">
+      <img src="asset/logo/logofull.svg" alt="" style="width:300px;height:300px;object-fit:contain;">
+    </div>
+    <div class="welcome-actions">
+      <button class="btn btn-primary" id="welcomeEnterBtn" type="button">Masuk</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LOGIN VIEW ==================== -->
+<div class="login-page" id="loginView" hidden>
+  <div class="auth-card">
+    <div class="login-head">
+      <div class="login-logo-row">
+        <img src="asset/logo/logofull.svg" alt="CashFlowZ" class="login-logo">
+      </div>
+      <h1 class="login-title">Masuk</h1>
+      <p class="login-subtitle">Masuk ke akun Anda untuk melanjutkan.</p>
+    </div>
+
+    <div class="login-error" id="loginError"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrap">
+          <i data-lucide="mail" class="input-icon"></i>
+          <input type="email" id="email" class="form-control" placeholder="Masukkan email" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <i data-lucide="lock" class="input-icon"></i>
+          <input type="password" id="password" class="form-control" placeholder="Masukkan password" autocomplete="current-password" required>
+          <button type="button" class="toggle-pass" id="togglePass"><i data-lucide="eye"></i></button>
+        </div>
+      </div>
+      <div class="remember-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="rememberMe" checked>
+          <span class="checkbox-visual"></span>
+          Ingat saya
+        </label>
+        <button type="button" class="btn-forgot-password" id="forgotPasswordBtn">Lupa Password?</button>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block login-submit-btn">Masuk</button>
+    </form>
+
+    <button type="button" class="login-back-btn" id="loginBackBtn"><i data-lucide="arrow-left"></i> Kembali</button>
+  </div>
+</div>
+
+<!-- ==================== RESET PASSWORD MODAL ==================== -->
+<div class="modal-overlay" id="resetPasswordModal" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle">
+  <div class="modal-box modal-sm">
+    <div class="modal-head">
+      <h3 id="resetModalTitle">Reset Password</h3>
+      <button class="modal-close" id="resetModalClose" type="button" aria-label="Tutup"><i data-lucide="x"></i></button>
+    </div>
+    <div class="modal-body">
+      <p class="reset-modal-desc">Masukkan email yang terdaftar. Kami akan mengirimkan tautan untuk membuat password baru.</p>
+      <div class="form-group" style="margin-bottom:0">
+        <label for="resetEmail"><i data-lucide="mail" style="width:13px;height:13px;vertical-align:-2px;margin-right:4px;"></i>Email</label>
+        <input type="email" id="resetEmail" class="form-control" placeholder="Masukkan email terdaftar" autocomplete="email">
+      </div>
+      <div class="login-error" id="resetError" style="margin-top:10px;margin-bottom:0"></div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="btn btn-ghost" id="resetCancelBtn">Batal</button>
+      <button type="button" class="btn btn-primary" id="resetSubmitBtn">
+        <span id="resetBtnLabel">Kirim Link Reset</span>
+        <span id="resetBtnSpinner" class="reset-spinner" hidden></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== APP SHELL (SPA) ==================== -->
+<div class="app-shell" id="appShell" hidden>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="mobile-topbar" id="mobileTopbar"></div>
+    <div id="viewRoot" class="view-root"></div>
+  </main>
+</div>
+
+<nav class="bottom-nav" id="bottomNav" hidden></nav>
+
+<!-- ==================== MODAL ==================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<!-- ==================== TOAST ==================== -->
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.379.0/dist/umd/lucide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<!-- Firebase (Modular SDK v9+, ES modules). These run after the classic
+     scripts below but before DOMContentLoaded, so window.FBAuth /
+     window.FBStore are ready by the time auth.js needs them. -->
+<script type="module" src="firebase/firebase-config.js"></script>
+<script type="module" src="firebase/auth.js"></script>
+<script type="module" src="firebase/firestore.js"></script>
+<!-- Core: data -->
+<script src="js/storage.js?v=5"></script>
+<script src="js/utils.js?v=5"></script>
+<script src="js/charts.js?v=5"></script>
+<!-- UI components -->
+<script src="js/components/toast.js?v=5"></script>
+<script src="js/components/modal.js?v=5"></script>
+<script src="js/components/period-filter.js?v=5"></script>
+<script src="js/components/sort-filter.js?v=5"></script>
+<!-- Views: dimuat statis agar tersedia sebelum router.js menjalankan
+     renderRoute() -- mencegah "XxxView is not defined". -->
+<script src="js/views/dashboard.js?v=26"></script>
+<script src="js/views/transaction.js?v=25"></script>
+<script src="js/views/insight.js?v=25"></script>
+<script src="js/views/insight-detail.js?v=25"></script>
+<script src="js/views/profile.js?v=25"></script>
+<!-- Shell & routing -->
+<script src="js/layout.js?v=6"></script>
+<script src="js/router.js?v=5"></script>
+<!-- App bootstrap -->
+<script src="js/auth.js?v=5"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?v=11').then((reg) => {
+    reg.addEventListener('updatefound', () => {
+      const newWorker = reg.installing;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          newWorker.postMessage({ type: 'SKIP_WAITING' });
+        }
+      });
+    });
+  });
+}
+</script>
+</body>
+</html>

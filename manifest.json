@@ -1,0 +1,43 @@
+{
+  "name": "CashFlowZ - Pencatatan Keuangan",
+  "short_name": "CashFlowZ",
+  "description": "Aplikasi pencatatan keuangan pribadi. Kelola pemasukan, pengeluaran, dan tabungan dengan mudah.",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#F5FAF7",
+  "theme_color": "#29AC6B",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "productivity", "utilities"],
+  "lang": "id-ID",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "asset/logo/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "asset/logo/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "asset/logo/logo-only.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Tambah Transaksi",
+      "short_name": "Tambah",
+      "description": "Buka form tambah transaksi",
+      "url": "/#/transaction"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Each signed-in Firebase Authentication user owns exactly one document
+    // at users/{uid} (uid == request.auth.uid), plus a transactions
+    // subcollection. There is no username list or email convention
+    // involved — any Firebase Auth account (created via the Firebase
+    // Console, Authentication -> Users -> Add user) automatically gets its
+    // own isolated data the first time it signs in, with no code change or
+    // redeploy required.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && request.resource.data is map
+        && request.resource.size() < 1024 * 1024;
+
+      match /transactions/{txId} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+        allow create, update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data is map
+          && request.resource.data.keys().hasAll(['type', 'date', 'amount'])
+          && request.resource.data.amount is number
+          && request.resource.data.amount >= 0;
+        allow delete: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}
